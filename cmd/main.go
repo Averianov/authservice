@@ -6,7 +6,6 @@ import (
 
 	"github.com/Averianov/authservice/controllers"
 	"github.com/Averianov/authservice/models"
-
 	"github.com/joho/godotenv"
 )
 

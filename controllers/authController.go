@@ -1,12 +1,13 @@
 package controllers
 
 import (
-	"authservice/models"
-	u "authservice/utils"
 	"encoding/json"
 	"net/http"
 	"strings"
 	"time"
+
+	"github.com/Averianov/authservice/models"
+	u "github.com/Averianov/authservice/utils"
 )
 
 // AuthController struct has two model interfaces - Account and Token
