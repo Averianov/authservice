@@ -2,7 +2,6 @@ package models
 
 import (
 	"context"
-	"log"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -16,14 +15,14 @@ var ctx = context.Background()
 var Secret string
 
 // Init function initializes environment, Cache and DB connections
-func Init(urldb string, scrt string) {
-	var err error
+func InitDB(urldb string, scrt string) (err error) {
 	Secret = scrt
 
 	client, _ := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://"+urldb))
 	if err = client.Ping(ctx, nil); err != nil {
-		log.Fatal(err)
+		return
 	}
 
 	collection = client.Database("authservice").Collection("session")
+	return
 }
