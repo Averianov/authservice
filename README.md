@@ -8,6 +8,7 @@ Go to user`s GOPATH:
 * cd %USERPROFILE%/go/src
 
 Download repository
+* go get https://github.com/Averianov/authservice.git@v0.0.1
 * git clone https://github.com/Averianov/authservice.git
 * cd ./authservice
 
