@@ -1,7 +1,7 @@
 package main
 
 import (
-	github.com/Averianov/authservice
+	"github.com/Averianov/authservice"
 )
 
 func main() {
