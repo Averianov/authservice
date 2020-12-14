@@ -9,4 +9,5 @@ require (
 	github.com/joho/godotenv v1.3.0
 	go.mongodb.org/mongo-driver v1.4.4
 	golang.org/x/crypto v0.0.0-20201208171446-5f87f3452ae9
+	github.com/Averianov/authservice v0.0.1
 )
