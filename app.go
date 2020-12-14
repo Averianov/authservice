@@ -1,4 +1,4 @@
-package main
+package authservice
 
 import (
 	"net/http"
@@ -9,20 +9,18 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func main() {
-	var err error
+func run() (err error) {
 	err = godotenv.Load()
 	if err != nil {
-		panic(err)
+		return
 	}
-
 	domain := os.Getenv("domain")
 	tokenPassword := os.Getenv("token_password")
 	urlDB := os.Getenv("url_db")
 
 	models.InitDB(urlDB, tokenPassword)
 	if err != nil {
-		panic(err)
+		return
 	}
 
 	session := models.NewSession(models.NewAccount())

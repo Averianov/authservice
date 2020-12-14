@@ -1,14 +1,15 @@
 package controllers
 
 import (
-	"authservice/mocks"
-	"authservice/models"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
+
+	"github.com/Averianov/authservice/mocks"
+	"github.com/Averianov/authservice/models"
 
 	"github.com/golang/mock/gomock"
 )
