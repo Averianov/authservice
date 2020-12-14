@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Averianov/authservice/models"
-	u "github.com/Averianov/authservice/utils"
+	"models"
+	u "utils"
 )
 
 // AuthController struct has two model interfaces - Account and Token
