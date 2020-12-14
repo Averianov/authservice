@@ -1,9 +1,10 @@
 package main
 
 import (
+	"net/http"
+
 	"authservice/controllers"
 	"authservice/models"
-	"net/http"
 )
 
 func main() {
