@@ -1,14 +1,14 @@
 # AuthService
 Тестовый проект на позицию Junior Backend Developer компании MEDODS
 
-Проект предполагает предустановленной базы данных Mongo. 
+Проект предполагает наличие предустановленной базы данных Mongo. 
 
 ### For run:
 Go to user`s GOPATH:
 * cd %USERPROFILE%/go/src
 
 Download repository
-* go get https://github.com/Averianov/authservice.git@v0.0.1
+* go get https://github.com/Averianov/authservice.git@v1.0.2
 * git clone https://github.com/Averianov/authservice.git
 * cd ./authservice
 
@@ -17,6 +17,7 @@ Edit .env file as you need
 
 Download dependencies
 * go env -w GO111MODULE=on && go mod vendor
+* go mod download
 
 Build project
 * cd ./cmd && go build
