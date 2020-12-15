@@ -29,4 +29,5 @@ func run() (err error) {
 	http.HandleFunc("/auth/refresh", controller.Refresh)
 
 	http.ListenAndServe(domain+":8080", nil)
+	return
 }
