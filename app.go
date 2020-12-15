@@ -9,7 +9,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func run() (err error) {
+func Run() (err error) {
 	err = godotenv.Load()
 	if err != nil {
 		return
