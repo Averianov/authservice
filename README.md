@@ -6,6 +6,8 @@ Note: The project assumes a pre-installed Mongo database.
 
 The service takes two routes. First route - /auth/login - get guid user data, validate and, if ok returned the couple access and refresh tokens. Refresh token returned as protected cookie. Second route - /auth/refresh - get refresh token, validate him, compare with data from DB and returned the new couple access and refresh tokens.
 
+Any results will return in response as JSON message.
+
 ### For launch:
 
 * Go to application work directory:
