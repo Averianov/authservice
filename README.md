@@ -4,6 +4,8 @@ Test project for the position of Junior Backend Developer at MEDODS Ltd.
 
 Note: The project assumes a pre-installed Mongo database.
 
+The service takes two routes. First route - /auth/login - get guid user data, validate and, if ok returned the couple access and refresh tokens. Refresh token returned as protected cookie. Second route - /auth/refresh - get refresh token, validate him, compare with data from DB and returned the new couple access and refresh tokens.
+
 ### For launch:
 
 * Go to application workdirectory:
@@ -11,7 +13,7 @@ Note: The project assumes a pre-installed Mongo database.
  cd ./some_application
 ```
 
-* create main.go. For example:
+* create main.go file. For example:
 ```go
 package main
 
@@ -28,7 +30,7 @@ func main() {
 ```
 
 * Create .env file. For example:
-```env
+```cfg
 domain = localhost
 url_db = localhost:27017
 token_password = $omE_e}{ample_$ecreT
@@ -43,7 +45,7 @@ go build
 ```
 * launch application:
 ```bash
-./myappname
+myappname
 ```
 ### Example requests:
 
@@ -51,6 +53,7 @@ go build
 ```bash
 curl -d "{\"guid\":\"6F9619FF-8B86-D011-B42D-00CF4FC964FF\"}" -X POST http://localhost:8080/auth/login -H "Content-Type:application/json"
 ```
+Note: this request can't take returning refresh token as cookie.
 
 ##### Refresh Example:
 ```bash
