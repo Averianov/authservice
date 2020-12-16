@@ -8,7 +8,7 @@ The service takes two routes. First route - /auth/login - get guid user data, va
 
 ### For launch:
 
-* Go to application workdirectory:
+* Go to application work directory:
 ```bash
  cd ./some_application
 ```
@@ -53,7 +53,7 @@ myappname
 ```bash
 curl -d "{\"guid\":\"6F9619FF-8B86-D011-B42D-00CF4FC964FF\"}" -X POST http://localhost:8080/auth/login -H "Content-Type:application/json"
 ```
-Note: this request can't take returning refresh token as cookie.
+Note: this request can't take returning refresh token as cookie. For get cookie (refresh token) you can use Postman or other software.
 
 ##### Refresh Example:
 ```bash
