@@ -39,7 +39,7 @@ token_password = $omE_e}{ample_$ecreT
 ```
 * Init dependencies:
 ```bash
-go env -w GO111MODULE=on && go mod init myappname
+go env -w GO111MODULE=on && go mod init myappname && go get -u ./...
 ```
 * Build application:
 ```bash
