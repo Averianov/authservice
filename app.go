@@ -18,7 +18,7 @@ func Run() (err error) {
 	tokenPassword := os.Getenv("token_password")
 	urlDB := os.Getenv("url_db")
 
-	models.InitDB(urlDB, tokenPassword)
+	err = models.InitDB(urlDB, tokenPassword)
 	if err != nil {
 		return
 	}
