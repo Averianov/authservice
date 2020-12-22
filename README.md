@@ -37,17 +37,19 @@ domain = localhost
 url_db = localhost:27017
 token_password = $omE_e}{ample_$ecreT
 ```
-* Init dependencies:
+* Init dependencies and build application:
 ```bash
 go env -w GO111MODULE=on && go mod init myappname
-```
-* Build application:
-```bash
 go build
 ```
 * launch application:
+For windows:
 ```bash
-myappname
+myappname.exe
+```
+For linux:
+```bash
+./myappname
 ```
 ### Example requests:
 
