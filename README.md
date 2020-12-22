@@ -12,7 +12,7 @@ Any results will return in response as JSON message.
 
 * Go to application work directory:
 ```bash
- cd ./some_application
+ cd ./some_directory
 ```
 
 * create main.go file. For example:
