@@ -16,6 +16,9 @@ import (
 const DOMAIN = "localhost"
 const SECRETKEY = "So$0meP3r[hektK&y"
 
+var trueRefreshToken string
+var notExistRefreshToken string
+
 func TestAuthController(t *testing.T) {
 	models.Secret = SECRETKEY
 	ctrl := gomock.NewController(t)
@@ -44,6 +47,13 @@ func testAuthenticate(t *testing.T, ctrl *gomock.Controller) {
 	})
 
 	testValueArr = append(testValueArr, testValue{
+		"6F9619FF-8B86-D011-B42D-00CF4FC964FF",
+		`"message":"Tokens has been created","status":true}`,
+		true,
+		nil,
+	})
+
+	testValueArr = append(testValueArr, testValue{
 		"as8df-a9sd87f9aa9sd8-fasd8f9asd87f98asd",
 		`{"message":"guid: invalid format","status":false}`,
 		false,
@@ -61,7 +71,7 @@ func testAuthenticate(t *testing.T, ctrl *gomock.Controller) {
 		makeBody := fmt.Sprintf("{\"guid\": \"%s\"}", GUID)
 
 		requestBody := strings.NewReader(makeBody)
-		r := httptest.NewRequest("POST", "http://localhost/auth/login", requestBody)
+		r := httptest.NewRequest("POST", "http://"+DOMAIN+"/auth/login", requestBody)
 		w := httptest.NewRecorder()
 
 		account := models.NewAccount()
@@ -92,6 +102,19 @@ func testAuthenticate(t *testing.T, ctrl *gomock.Controller) {
 		if !strings.Contains(string(body), tVal.expectedBody) {
 			t.Fatalf("Invalid body %s. Expected: %s. Iteration = %d\n", string(body), tVal.expectedBody, i)
 		}
+
+		if tVal.expectingUseMosk == true && tVal.expectingErrMosk == nil {
+			cookies := resp.Cookies()
+			for _, cookie := range cookies {
+				if cookie.Name == "refresh_token" {
+					if trueRefreshToken != "" {
+						notExistRefreshToken = trueRefreshToken
+					}
+					trueRefreshToken = cookie.Value
+					break
+				}
+			}
+		}
 	}
 }
 
@@ -107,7 +130,7 @@ func testRefresh(t *testing.T, ctrl *gomock.Controller) {
 	var testValueArr []testValue
 
 	testValueArr = append(testValueArr, testValue{
-		"eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDc5ODI3NDcsImp0aSI6IjZmOTYxOWZmLThiODYtZDAxMS1iNDJkLTAwY2Y0ZmM5NjRmZiIsInN1YiI6InJlZnJlc2hfdG9rZW4ifQ.XZ6VvWDXTYV6wCHRj6QqBNuRkjp0JrMY7jgGr3e_zQR_ZoYCkro3AcLBxPyXq8dH",
+		trueRefreshToken,
 		`"message":"Tokens has been created","status":true}`,
 		true,
 		nil,
@@ -115,7 +138,15 @@ func testRefresh(t *testing.T, ctrl *gomock.Controller) {
 	})
 
 	testValueArr = append(testValueArr, testValue{
-		"eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDc5ODA2MjAsImp0aSI6IjZmOTYxOWZmLThiODYtZDAxMS1iNDJkLTAwY2Y0ZmM5NjRmZiIsInN1YiI6InJlZnJlc2hfdG9rZW4ifQ.CIkV64BoX2-nlXWU1O18PHjz3avVawuQ-cGo-WrK04tkSqGYUaoHL6lNBb5dHKcK",
+		"eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDc5ODI3NDcsImp0aSI6IjZmOTYxOWZmLThiODYtZDAxMS1iNDJkLTAwY2Y0ZmM5NjRmZiIsInN1YiI6InJlZnJlc2hfdG9rZW4ifQ.XZ6VvWDXTYV6wCHRj6QqBNuRkjp0JrMY7jgGr3e_zQR_ZoYCkro3AcLBxPyXq8dH",
+		`"message":"token is expired by`,
+		false,
+		nil,
+		false,
+	})
+
+	testValueArr = append(testValueArr, testValue{
+		notExistRefreshToken,
 		`{"message":"Not Exist","status":false}`,
 		true,
 		fmt.Errorf("Not Exist"),
@@ -132,7 +163,7 @@ func testRefresh(t *testing.T, ctrl *gomock.Controller) {
 
 	authTest := func(t *testing.T, token string, useCompareMock bool, errCompareMock error, useSaveMock bool) (resp *http.Response, body []byte) {
 
-		r := httptest.NewRequest("POST", "http://localhost/auth/refresh", nil)
+		r := httptest.NewRequest("POST", "http://"+DOMAIN+"/auth/refresh", nil)
 		r.Header.Add("Authorization", "Bearer "+token)
 		w := httptest.NewRecorder()
 

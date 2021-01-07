@@ -87,7 +87,7 @@ func (controller *AuthController) prepareResponse(w http.ResponseWriter) {
 	}
 
 	cookie := &http.Cookie{}
-	cookie.Name = "refresh_Token"
+	cookie.Name = "refresh_token"
 	cookie.Value = refreshToken
 	cookie.Expires = time.Now().Add(time.Hour * 24)
 	cookie.Domain = controller.domain
