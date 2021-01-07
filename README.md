@@ -18,7 +18,7 @@ cd ./authservice
 
 * Check variables in .env file:
 
-Variables: url_db - url to mongo DB, domain - dn for application and for secure tokens, token_password - password for encode token\n
+Variables: url_db - url to mongo DB; domain - dn for application and for secure tokens; token_password - password for encode token
 
 For example:
 ```cfg
@@ -32,10 +32,14 @@ token_password = SomeVerySecretPasswordForTokens
 go test ./controllers
 ```
 
-* Init/update dependencies and build application:
+* Build application:
+```bash
+go build .
+```
+
+* For init dependencies if need:
 ```bash
 go get -u ./...
-go build .
 ```
 
 * launch application:
