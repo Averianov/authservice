@@ -10,15 +10,10 @@ Any results will return in response as JSON message.
 
 ### For launch:
 
-* Go to application work directory:
-```bash
-mk ./myappname
-cd ./myappname
-```
-
-* Go to application work directory:
+* Get application from git:
 ```bash
 git clone https://github.com/Averianov/authservice
+cd ./authservice
 ```
 
 * Check variables in .env file. 
@@ -32,7 +27,7 @@ domain = myapp.domain.com
 token_password = SomeVerySecretPasswordForTokens
 ```
 
-* For test application:
+* For test application controller:
 ```bash
 go test ./controllers
 ```
@@ -47,11 +42,11 @@ go build .
 
 For windows:
 ```bash
-myappname.exe
+authservice.exe
 ```
 For linux:
 ```bash
-./myappname
+./authservice
 ```
 ### Example requests:
 

@@ -3,6 +3,7 @@ package main
 import (
 	"authservice/controllers"
 	"authservice/models"
+	"fmt"
 	"net/http"
 	"os"
 
@@ -17,6 +18,8 @@ func main() {
 }
 
 func run() (err error) {
+
+	fmt.Println("Read .env file...")
 	err = godotenv.Load()
 	if err != nil {
 		return
@@ -25,11 +28,13 @@ func run() (err error) {
 	tokenPassword := os.Getenv("token_password")
 	urlDB := os.Getenv("url_db")
 
+	fmt.Println("Check connection with DB...")
 	err = models.InitConnectionToDB(urlDB, tokenPassword)
 	if err != nil {
 		return
 	}
 
+	fmt.Println("Ready to work")
 	session := models.NewSession(models.NewAccount())
 	controller := controllers.NewAuthController(&session.Account, session, domain)
 	http.HandleFunc("/auth/login", controller.Authenticate)
