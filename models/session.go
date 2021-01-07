@@ -24,9 +24,14 @@ func NewSession(account account) *session {
 
 // CompareWithExisting is method who find hashed token in DB, compare incoming token with him and delete old session from DB if true
 func (session *session) CompareWithExisting(incomingToken string) (err error) {
+	db, err := ConnectToDB()
+	if err != nil {
+		return
+	}
+	defer db.Close()
 
 	filter := bson.D{primitive.E{Key: "account.guid", Value: session.Account.GUID}}
-	err = collection.FindOne(ctx, filter).Decode(session)
+	err = db.collection.FindOne(db.ctx, filter).Decode(session)
 	if err != nil {
 		return
 	}
@@ -37,6 +42,11 @@ func (session *session) CompareWithExisting(incomingToken string) (err error) {
 // Save is method who saved or replased session in DB
 func (session *session) Save() (err error) {
 	var hashedToken []byte
+	db, err := ConnectToDB()
+	if err != nil {
+		return
+	}
+	defer db.Close()
 
 	hashedToken, err = bcrypt.GenerateFromPassword([]byte(session.Account.Token), bcrypt.DefaultCost)
 	if err != nil {
@@ -45,16 +55,16 @@ func (session *session) Save() (err error) {
 	session.Account.Token = string(hashedToken)
 
 	filter := bson.D{primitive.E{Key: "account.guid", Value: session.Account.GUID}}
-	err = collection.FindOne(ctx, filter).Err()
+	err = db.collection.FindOne(db.ctx, filter).Err()
 	if err == nil {
 		update := bson.D{
 			{"$set", bson.D{
 				{"account.token", session.Account.Token},
 			}},
 		}
-		_, err = collection.UpdateOne(ctx, filter, update)
+		_, err = db.collection.UpdateOne(db.ctx, filter, update)
 	} else {
-		_, err = collection.InsertOne(ctx, session)
+		_, err = db.collection.InsertOne(db.ctx, session)
 	}
 	return
 }

@@ -22,7 +22,7 @@ type token struct {
 
 type account struct {
 	GUID  string `json:"guid" bson:"guid"`
-	Token string `json:"token" bson:"token"`
+	Token string `json:"token" bson:"token"` // it is a Refresh Token
 }
 
 // NewAccount is a function who return new account struct
@@ -46,7 +46,7 @@ func (account *account) ValidateRefreshToken(incomingToken string) (err error) {
 	var parsedToken *jwt.Token
 	tk := &token{}
 	parsedToken, err = jwt.ParseWithClaims(incomingToken, tk, func(token *jwt.Token) (interface{}, error) {
-		return []byte(Secret), nil
+		return []byte(secret), nil
 	})
 	if err != nil {
 		return
@@ -67,7 +67,7 @@ func (account *account) CreateTokens() (accessToken string, refreshToken string,
 		ExpiresAt: time.Now().Add(time.Minute * 15).Unix(),
 	}
 	at := jwt.NewWithClaims(jwt.SigningMethodHS512, claims)
-	accessToken, err = at.SignedString([]byte(Secret))
+	accessToken, err = at.SignedString([]byte(secret))
 	if err != nil {
 		return
 	}
@@ -75,7 +75,7 @@ func (account *account) CreateTokens() (accessToken string, refreshToken string,
 	claims.Subject = "refresh_token"
 	claims.ExpiresAt = time.Now().Add(time.Hour * 24).Unix()
 	rt := jwt.NewWithClaims(jwt.SigningMethodHS384, claims)
-	refreshToken, err = rt.SignedString([]byte(Secret))
+	refreshToken, err = rt.SignedString([]byte(secret))
 	if err != nil {
 		accessToken = ""
 		return

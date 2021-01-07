@@ -12,36 +12,32 @@ Any results will return in response as JSON message.
 
 * Go to application work directory:
 ```bash
- cd ./some_directory
+mk ./myappname
+cd ./myappname
 ```
 
-* create main.go file. For example:
-```go
-package main
-
-import (
-	"github.com/Averianov/authservice"
-)
-
-func main() {
-	err := authservice.Run()
-	if err != nil {
-		panic(err)
-	}
-}
+* Go to application work directory:
+```bash
+git clone https://github.com/Averianov/authservice
 ```
 
-* Create .env file. For example:
+* Check variables in .env file. 
+url_db - url to mongo DB
+domain - dn for application and for secure tokens
+token_password - password for encode token
+For example:
 ```cfg
-domain = localhost
-url_db = localhost:27017
-token_password = $omE_e}{ample_$ecreT
+url_db = 127.0.0.1:27017
+domain = myapp.domain.com
+token_password = SomeVerySecretPasswordForTokens
 ```
+
 * Init/update dependencies and build application:
 ```bash
 go env -w GO111MODULE=on && go mod init myappname && go get -u ./...
-go build
+go build .
 ```
+
 * launch application:
 
 For windows:
