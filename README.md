@@ -32,9 +32,14 @@ domain = myapp.domain.com
 token_password = SomeVerySecretPasswordForTokens
 ```
 
+* For test application:
+```bash
+go test ./controllers
+```
+
 * Init/update dependencies and build application:
 ```bash
-go env -w GO111MODULE=on && go mod init myappname && go get -u ./...
+go get -u ./...
 go build .
 ```
 
