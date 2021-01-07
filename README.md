@@ -16,10 +16,10 @@ git clone https://github.com/Averianov/authservice
 cd ./authservice
 ```
 
-* Check variables in .env file:\n
-url_db - url to mongo DB\n
-domain - dn for application and for secure tokens\n
-token_password - password for encode token\n
+* Check variables in .env file:
+
+Variables: url_db - url to mongo DB, domain - dn for application and for secure tokens, token_password - password for encode token\n
+
 For example:
 ```cfg
 url_db = 127.0.0.1:27017
