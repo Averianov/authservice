@@ -10,6 +10,17 @@ Any results will return in response as JSON message.
 
 ### For launch:
 
+* Go to home directory:
+
+For Windows:
+```bash
+cd %UserProfile%/go/src
+```
+For Linux:
+```bash
+cd $HOME/go/src
+```
+
 * Get application from git:
 ```bash
 git clone https://github.com/Averianov/authservice
@@ -27,19 +38,14 @@ domain = myapp.domain.com
 token_password = SomeVerySecretPasswordForTokens
 ```
 
-* For test application controller:
+* For init dependencies if need:
 ```bash
-go test ./controllers
+go get -u ./...
 ```
 
 * Build application:
 ```bash
-go build .
-```
-
-* For init dependencies if need:
-```bash
-go get -u ./...
+go build main.go
 ```
 
 * launch application:
