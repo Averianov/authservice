@@ -1,6 +1,6 @@
 # AuthService
 
-Test project for the position of Junior Backend Developer at MEDODS Ltd.
+Trial project.
 
 Note: The project assumes a pre-installed Mongo database.
 
